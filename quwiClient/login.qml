@@ -10,6 +10,14 @@ ApplicationWindow {
     height: 480
     title: qsTr("Scroll")
 
+    Connections {
+        target: loginHandler
+
+        onSendError: {
+            errorLable.text = error
+        }
+    }
+
     Text
     {
         id: loginLabel
@@ -51,6 +59,18 @@ ApplicationWindow {
         autoExclusive: true
         checkable: false
         display: AbstractButton.TextBesideIcon
+        onClicked:
+        {
+            loginHandler.recieveData(loginEdit.text,passwordEdit.text)
+        }
+    }
+
+    Text {
+        id: errorLable
+        anchors.top: loginButton.bottom
+        anchors.topMargin: 10
+        anchors.horizontalCenter: loginEdit.horizontalCenter
+        color: "#FF0000"
     }
 
 

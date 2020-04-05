@@ -29,11 +29,23 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 if(ANDROID)
     add_library(quwiClient SHARED
       main.cpp
+      login.cpp
+      login.h
+      projectshandler.cpp
+      projectshandler.h
+      imagedownloader.cpp
+      imagedownloader.h
       qml.qrc
     )
 else()
     add_executable(quwiClient
       main.cpp
+      login.cpp
+      login.h
+      projectshandler.cpp
+      projectshandler.h
+      imagedownloader.cpp
+      imagedownloader.h
       qml.qrc
     )
 endif()
