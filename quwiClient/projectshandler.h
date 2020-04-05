@@ -11,13 +11,15 @@
 #include <QQmlContext>
 #include <QImage>
 
+#include "imagedownloader.h"
+
 class ProjectsHandler : public QObject
 {
     Q_OBJECT
 public:
     explicit ProjectsHandler(QObject *parent = nullptr);
 
-signals:
+
 
 public slots:
     void loadProjectsHandler(QString token);
@@ -41,12 +43,16 @@ private:
     QQmlContext*            mQmlContext{ nullptr };
     QString                 mToken;
     QList<SProjectInfo>     mProjectsInfo;
+    ImageDownloader*        mImageDonwloader;
 
 
 private:
     void getProjectList();
     void parseProjectsJson(QJsonDocument document);
     const QImage &downloadLogo(const QUrl &logoUrl);
+
+signals:
+    void appendNewProject(QString name,QString logo,QString spentTimeAll,QString spentTimeMonth, QString spentTimeWeek);
 
 };
 

@@ -31,6 +31,7 @@ Login::Login(QObject *parent) :
             QJsonObject object = item.object();
             qDebug() << object.value("token").toString();
             emit successLogin( object.value("token").toString() );
+            emit closeWindow();
         }
     });
    mQmlEngine->load(url);

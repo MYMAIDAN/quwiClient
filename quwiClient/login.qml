@@ -16,6 +16,10 @@ ApplicationWindow {
         onSendError: {
             errorLable.text = error
         }
+        onCloseWindow:
+        {
+            applicationWindow.close()
+        }
     }
 
     Text

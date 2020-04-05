@@ -1,5 +1,5 @@
-#ifndef IMAGEDOWNLOADER_H
-#define IMAGEDOWNLOADER_H
+#ifndef PROJECTMANAGER_H
+#define PROJECTMANAGER_H
 
 #include <QObject>
 #include <QNetworkAccessManager>
@@ -11,22 +11,21 @@
 #include <QQmlContext>
 #include <QImage>
 
-class ImageDownloader : public QObject
+class ProjectManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit ImageDownloader(QObject *parent = nullptr);
-    ImageDownloader(QString token,QObject* parent = nullptr);
-    const QUrl &downloadImage(const QUrl& imageUrl);
-
-signals:
+    ProjectManager(QString token,QObject *parent = nullptr);
+private:
+    ProjectManager(QObject *parent = nullptr);
 
 private:
     QNetworkAccessManager*  mNetwrokManager{ nullptr };
     QNetworkRequest*        mNetworkRequest{ nullptr };
     QNetworkReply*          mNetworkReply{ nullptr };
+    QQmlApplicationEngine*  mQmlEngine{ nullptr };
+    QQmlContext*            mQmlContext{ nullptr };
     QString                 mToken;
-
 };
 
-#endif // IMAGEDOWNLOADER_H
+#endif // PROJECTMANAGER_H

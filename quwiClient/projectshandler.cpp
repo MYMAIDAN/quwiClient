@@ -17,6 +17,7 @@ void ProjectsHandler::loadProjectsHandler(QString token)
 {
     const QUrl url(QStringLiteral("qrc:/projectsView.qml"));
     mQmlContext = mQmlEngine->rootContext();
+    mQmlContext->setContextProperty("newProjectHandler",this);
 
     QObject::connect(mQmlEngine, &QQmlApplicationEngine::objectCreated,
                      this, [url](QObject *obj, const QUrl &objUrl) {
@@ -48,15 +49,41 @@ void ProjectsHandler::parseProjectsJson(QJsonDocument document)
     auto array = object.value("projects");
     auto arrayIt  = array.toArray();
     SProjectInfo projectInfo;
+    mImageDonwloader  = new ImageDownloader(mToken);
     for( auto it: arrayIt)
     {
         auto project =  it.toObject();
         projectInfo.name = project.value("name").toString();
-        projectInfo.logoUrl = project.value("logo_url").toString();
+        if( project.value("logo_url").isNull()){
+           projectInfo.logoUrl = "null";
+        }
+        else
+        {
+            mImageDonwloader->downloadImage(QUrl(project.value("logo_url").toString()));
+        }
+
         projectInfo.spentTimeAll = project.value("spent_time_all").toString();
         projectInfo.spentTimeMonth = project.value("spent_time_month").toString();
         projectInfo.spentTimeWeek = project.value("spent_time_week").toString();
         mProjectsInfo.push_back(projectInfo);
+
+        if(projectInfo.spentTimeAll.isEmpty())
+        {
+            projectInfo.spentTimeAll = "00:00:00";
+        }
+        if(projectInfo.spentTimeMonth.isEmpty())
+        {
+            projectInfo.spentTimeMonth = "00:00:00";
+        }
+        if(projectInfo.spentTimeWeek.isEmpty())
+        {
+            projectInfo.spentTimeWeek = "00:00:00";
+        }
+        emit appendNewProject(projectInfo.name,
+                              projectInfo.logoUrl.toString(),
+                              projectInfo.spentTimeAll,
+                              projectInfo.spentTimeMonth,
+                              projectInfo.spentTimeWeek);
 
     }
 
@@ -64,5 +91,6 @@ void ProjectsHandler::parseProjectsJson(QJsonDocument document)
 
 const QImage &ProjectsHandler::downloadLogo(const QUrl &logoUrl)
 {
+    QImage image;
     mNetworkRequest->setUrl(logoUrl);
 }

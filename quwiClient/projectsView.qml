@@ -11,54 +11,69 @@ Window {
     height: 480
     title: qsTr("Scroll")
 
-    ListModel {
-        id: modelId
-        ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
-        }
-        ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
+    Connections {
+        target: newProjectHandler
+
+        onAppendNewProject: {
+            modelId.append({"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
         }
     }
 
+    ListModel {
+        id: modelId
+    }
+
     Rectangle {
-        width: 500; height: 200
+        width: parent.width; height: 200
+        id: rec
 
         Component {
             id: contactDelegate
             Item {
-                width: 500; height: 40
+                width:  rec.width; height: 50
+                id: it
                 Image {
                     id: image
                     width: 64
                     height: 29
                     fillMode: Image.PreserveAspectFit
                     source: "photo-1503023345310-bd7c1de61c7d.jpg"
+
                 }
                 Text {
                     id: status
-                    anchors.left: image.right
+                    anchors.horizontalCenter: it.horizontalCenter
                     anchors.leftMargin: 40
                     text: qsTr("Active")
                 }
                 Column {
                     id: col
-                    anchors.left: status.right
                     anchors.leftMargin: 30
-                    Text { text: '<b>Name:</b> ' + name }
-                    Text { text: '<b>Number:</b> ' + number }
+                    anchors.right: it.right
+
+                    Text {
+                        id: timeThisWeekLabe
+                        text: qsTr("time this week:" + time_this_week)
+                    }
+                    Text {
+                        id: timeThisMonth
+                        text: qsTr("this month:" + time_this_month)
+                    }
+                    Text {
+                        id: timeAll
+                        text: qsTr("total:" + time_total)
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        console.log("Hello")
+                    }
                 }
             }
-
-
         }
-
     }
 
     ListView {
@@ -69,5 +84,4 @@ Window {
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
     }
-
 }

@@ -18,6 +18,7 @@ public:
 signals:
     void sendError( QString error );
     void successLogin(QString token);
+    void closeWindow();
 
 public slots:
    void recieveData( QString email, QString passwd );
