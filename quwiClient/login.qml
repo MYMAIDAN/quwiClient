@@ -44,7 +44,7 @@ ApplicationWindow {
         anchors.top: loginEdit.bottom
         anchors.horizontalCenter: loginEdit.horizontalCenter
         anchors.topMargin: 10
-
+        echoMode: "Password"
         placeholderText: "Password"
     }
 

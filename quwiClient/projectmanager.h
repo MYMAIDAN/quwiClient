@@ -11,14 +11,17 @@
 #include <QQmlContext>
 #include <QImage>
 
+#include "public.h"
+
 class ProjectManager : public QObject
 {
     Q_OBJECT
 public:
-    ProjectManager(QString token,QObject *parent = nullptr);
+    ProjectManager(const SProjectInfo& projectInfo ,QString token,QObject *parent = nullptr);
 private:
     ProjectManager(QObject *parent = nullptr);
-
+public slots:
+    void changeName(const QString& newName);
 private:
     QNetworkAccessManager*  mNetwrokManager{ nullptr };
     QNetworkRequest*        mNetworkRequest{ nullptr };
@@ -26,6 +29,7 @@ private:
     QQmlApplicationEngine*  mQmlEngine{ nullptr };
     QQmlContext*            mQmlContext{ nullptr };
     QString                 mToken;
+    SProjectInfo            mProjectInfo;
 };
 
 #endif // PROJECTMANAGER_H

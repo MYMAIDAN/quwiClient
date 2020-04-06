@@ -7,7 +7,8 @@ ProjectsHandler::ProjectsHandler(QObject *parent) :
     QObject(parent),
     mNetwrokManager( new QNetworkAccessManager(this) ),
     mNetworkRequest( new QNetworkRequest),
-    mQmlEngine(new QQmlApplicationEngine(this))
+    mQmlEngine(new QQmlApplicationEngine(this)),
+    mProjectsMap(new QMap<QString,SProjectInfo>)
 {
 
 
@@ -29,6 +30,20 @@ void ProjectsHandler::loadProjectsHandler(QString token)
     mQmlEngine->load(url);
     mToken = token;
     getProjectList();
+}
+
+void ProjectsHandler::openProjectSetting(QString projectName)
+{
+    if( mProjectManager != nullptr)
+    {
+        delete mProjectManager;
+    }
+    auto it  = mProjectsMap->find(projectName);
+    if( it != mProjectsMap->end() )
+    {
+        mProjectManager = new ProjectManager(it.value(),mToken);
+    }
+
 }
 
 void ProjectsHandler::getProjectList()
@@ -65,6 +80,9 @@ void ProjectsHandler::parseProjectsJson(QJsonDocument document)
         projectInfo.spentTimeAll = project.value("spent_time_all").toString();
         projectInfo.spentTimeMonth = project.value("spent_time_month").toString();
         projectInfo.spentTimeWeek = project.value("spent_time_week").toString();
+        projectInfo.projectId     = project.value("id").toInt();
+        projectInfo.isActive = project.value("is_active").toInt();
+        projectInfo.isOwnerWatcher = project.value("is_owner_watcher").toInt();
         mProjectsInfo.push_back(projectInfo);
 
         if(projectInfo.spentTimeAll.isEmpty())
@@ -79,6 +97,8 @@ void ProjectsHandler::parseProjectsJson(QJsonDocument document)
         {
             projectInfo.spentTimeWeek = "00:00:00";
         }
+
+        mProjectsMap->insert(projectInfo.name,projectInfo);
         emit appendNewProject(projectInfo.name,
                               projectInfo.logoUrl.toString(),
                               projectInfo.spentTimeAll,

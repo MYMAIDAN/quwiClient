@@ -15,7 +15,7 @@ Window {
         target: newProjectHandler
 
         onAppendNewProject: {
-            modelId.append({"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
+            modelId.append({"projectName":name,"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
         }
     }
 
@@ -63,13 +63,17 @@ Window {
                         id: timeAll
                         text: qsTr("total:" + time_total)
                     }
+                    Text{
+                        id:projectName
+                    }
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked:
                     {
-                        console.log("Hello")
+                        newProjectHandler.openProjectSetting(modelId.get(index).projectName)
+                        console.log(modelId.get(index).projectName);
                     }
                 }
             }

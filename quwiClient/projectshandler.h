@@ -10,8 +10,11 @@
 #include <QString>
 #include <QQmlContext>
 #include <QImage>
+#include <QMap>
 
 #include "imagedownloader.h"
+#include "projectmanager.h"
+#include "public.h"
 
 class ProjectsHandler : public QObject
 {
@@ -23,18 +26,10 @@ public:
 
 public slots:
     void loadProjectsHandler(QString token);
+    void openProjectSetting(QString projectName);
 
 
 private:
-
-    struct SProjectInfo
-    {
-        QString name;
-        QUrl    logoUrl;
-        QString spentTimeAll;
-        QString spentTimeMonth;
-        QString spentTimeWeek;
-    };
 
     QNetworkAccessManager*  mNetwrokManager{ nullptr };
     QNetworkRequest*        mNetworkRequest{ nullptr };
@@ -44,6 +39,8 @@ private:
     QString                 mToken;
     QList<SProjectInfo>     mProjectsInfo;
     ImageDownloader*        mImageDonwloader;
+    ProjectManager*         mProjectManager;
+    QMap<QString,SProjectInfo>* mProjectsMap;
 
 
 private:

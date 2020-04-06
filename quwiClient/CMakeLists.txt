@@ -37,6 +37,7 @@ if(ANDROID)
       imagedownloader.h
       projectmanager.cpp
       projectmanager.h
+      public.h
       qml.qrc
     )
 else()
@@ -50,6 +51,7 @@ else()
       imagedownloader.h
       projectmanager.cpp
       projectmanager.h
+      public.h
       qml.qrc
     )
 endif()

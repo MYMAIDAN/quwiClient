@@ -11,10 +11,14 @@ Window {
     height: 480
     title: qsTr("Scroll")
 
-    Column{
-        x: 47
-        y: 64
+    Connections {
+        target: projectSetting
+    }
 
+    Column{
+        x: 62
+        y: 116
+        id: nameActiveColumn
         width: 386
         height: 113
 
@@ -36,6 +40,7 @@ Window {
             anchors.left: activeLable.right
             anchors.leftMargin: 56
             checked: false
+            objectName: "activeSwithObject"
         }
     }
 
@@ -57,11 +62,11 @@ Window {
         TextField
         {
            id: projectNameEdit
-           text: qsTr("Name")
            anchors.verticalCenterOffset: 0
            anchors.left: parent.left
            anchors.leftMargin: 100
            anchors.verticalCenter: projectNameLabel.verticalCenter
+           objectName: "projectNameEdit"
         }
 
      Button
@@ -80,9 +85,50 @@ Window {
          anchors.verticalCenter: parent.verticalCenter
          anchors.left: projectNameEdit.right
          anchors.leftMargin: 20
+         onClicked: {
+             projectSetting.changeName(projectNameEdit.text)
+             console.log(projectNameEdit.text)
+         }
      }
     }
   }
+    Image
+    {
+        id:logoImage
+        width: 152
+        height: 113
+        anchors.bottom: nameActiveColumn.bottom
+        anchors.bottomMargin: 0
+        anchors.left: nameActiveColumn.right
+        anchors.leftMargin: 20
+    }
+
+    Row
+    {
+        id: row
+        width: 401
+        height: 42
+        anchors.left: nameActiveColumn.left
+        anchors.leftMargin: 0
+        anchors.top: nameActiveColumn.bottom
+        anchors.topMargin: 10
+        Switch {
+            id: addMeWatcherSwitch
+            text: qsTr("Switch")
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            objectName: "ownerWatchedSwitch"
+         }
+
+        Text {
+            id: element1
+            text: qsTr("Add me as watcher to tickets created by others")
+            anchors.left: addMeWatcherSwitch.right
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 12
+        }
+    }
 }
 
 /*##^##
