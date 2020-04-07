@@ -23,15 +23,15 @@ Window {
         id: modelId
     }
 
-    Rectangle {
-        width: parent.width; height: 200
-        id: rec
-
         Component {
             id: contactDelegate
-            Item {
-                width:  rec.width; height: 50
+
+            Rectangle {
+                width: applicationWindow.width - 30; height: 50
                 id: it
+                border.color: "gray"
+
+
                 Image {
                     id: image
                     width: 64
@@ -50,19 +50,52 @@ Window {
                     id: col
                     anchors.leftMargin: 30
                     anchors.right: it.right
+                    Row{
+                        Text {
+                            id: timeThisWeekLabel
+                            text: qsTr("time this week:")
+                        }
 
-                    Text {
-                        id: timeThisWeekLabe
-                        text: qsTr("time this week:" + time_this_week)
+                        Text {
+                            id: timeThisWeekLabeValue
+                            text: time_this_week
+
+                            anchors.leftMargin: 10
+                        }
                     }
-                    Text {
-                        id: timeThisMonth
-                        text: qsTr("this month:" + time_this_month)
+
+                    Row{
+
+                        Text {
+
+                            id: timeThisMonth
+                            text: qsTr("this month:")
+                        }
+
+                        Text {
+                            id: timeThisMonthValue
+                            text: time_this_month
+                        }
+
                     }
-                    Text {
-                        id: timeAll
-                        text: qsTr("total:" + time_total)
+
+                    Row
+                    {
+                        Text {
+                            id: timeAll
+                            text: qsTr("total:")
+                        }
+
+                        Text {
+                            id: timeAllValue
+                            text: time_total
+                            anchors.top: timeThisMonthValue.bottom
+                            anchors.left: timeThisMonthValue.left
+                        }
+
                     }
+
+
                     Text{
                         id:projectName
                     }
@@ -78,14 +111,22 @@ Window {
                 }
             }
         }
-    }
 
-    ListView {
-        width: 370; height: 200
+
+        ListView {
+            anchors.fill: parent
 
         model: modelId
         delegate: contactDelegate
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         focus: true
+        anchors.margins: 20
+        spacing: 20
     }
 }
+
+/*##^##
+Designer {
+    D{i:13;anchors_height:200;anchors_width:370;anchors_x:29;anchors_y:128}D{i:19;anchors_height:200;anchors_width:370;anchors_x:29;anchors_y:128}
+}
+##^##*/
