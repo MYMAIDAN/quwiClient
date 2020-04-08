@@ -26,6 +26,7 @@ private:
     QNetworkRequest*        mNetworkRequest{ nullptr };
     QNetworkReply*          mNetworkReply{ nullptr };
     QString                 mToken;
+    bool                    isDownloaded;
 
 };
 

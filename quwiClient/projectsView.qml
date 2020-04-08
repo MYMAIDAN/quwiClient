@@ -15,7 +15,7 @@ Window {
         target: newProjectHandler
 
         onAppendNewProject: {
-            modelId.append({"projectName":name,"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
+            modelId.append({"logoPath":logo,"projectName":name,"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
         }
     }
 
@@ -27,30 +27,41 @@ Window {
             id: contactDelegate
 
             Rectangle {
-                width: applicationWindow.width - 30; height: 50
+                width: applicationWindow.width - 30; height: 100
                 id: it
                 border.color: "gray"
 
 
                 Image {
                     id: image
-                    width: 64
-                    height: 29
+                    width: 80
+                    height: 80
+                    anchors.top: it.top
+                    anchors.topMargin: 20
+                    anchors.bottom: it.bottom
+                    anchors.bottomMargin: 20
+                    anchors.left: it.left
+                    anchors.leftMargin: 20
                     fillMode: Image.PreserveAspectFit
-                    source: "photo-1503023345310-bd7c1de61c7d.jpg"
+                    source: "file:/"+ logoPath
 
                 }
                 Text {
                     id: status
-                    anchors.horizontalCenter: it.horizontalCenter
+                    anchors.centerIn: it
                     anchors.leftMargin: 40
                     text: qsTr("Active")
                 }
                 Column {
                     id: col
-                    anchors.leftMargin: 30
+                    width: 180
+                    height: 30;
                     anchors.right: it.right
-                    Row{
+                    anchors.rightMargin: 20
+                    anchors.top: it.top
+                    anchors.topMargin: 20
+
+
                         Text {
                             id: timeThisWeekLabel
                             text: qsTr("time this week:")
@@ -59,47 +70,45 @@ Window {
                         Text {
                             id: timeThisWeekLabeValue
                             text: time_this_week
+                            anchors.left: timeThisWeekLabel.right
 
-                            anchors.leftMargin: 10
+                            anchors.leftMargin: 5
                         }
-                    }
 
-                    Row{
 
                         Text {
 
                             id: timeThisMonth
                             text: qsTr("this month:")
+                            anchors.top: timeThisWeekLabel.bottom
+                            anchors.topMargin: 2.5
                         }
 
                         Text {
                             id: timeThisMonthValue
                             text: time_this_month
+                            anchors.left: timeThisWeekLabeValue.left
+                            anchors.leftMargin: 0
+                            anchors.top: timeThisWeekLabeValue.bottom
+                            anchors.topMargin: 2.5
                         }
 
-                    }
-
-                    Row
-                    {
                         Text {
                             id: timeAll
                             text: qsTr("total:")
+                            anchors.top: timeThisMonth.bottom
+                            anchors.topMargin: 2.5
                         }
-
                         Text {
                             id: timeAllValue
                             text: time_total
                             anchors.top: timeThisMonthValue.bottom
+                            anchors.topMargin: 2.5
                             anchors.left: timeThisMonthValue.left
+                            anchors.leftMargin: 0
                         }
 
                     }
-
-
-                    Text{
-                        id:projectName
-                    }
-                }
 
                 MouseArea {
                     anchors.fill: parent
@@ -127,6 +136,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:13;anchors_height:200;anchors_width:370;anchors_x:29;anchors_y:128}D{i:19;anchors_height:200;anchors_width:370;anchors_x:29;anchors_y:128}
+    D{i:15;anchors_height:200;anchors_width:370;anchors_x:29;anchors_y:128}
 }
 ##^##*/

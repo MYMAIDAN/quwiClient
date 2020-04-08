@@ -10,6 +10,8 @@
 #include <QString>
 #include <QQmlContext>
 
+#include "public.h"
+
 class Login : public QObject
 {
     Q_OBJECT
@@ -17,11 +19,13 @@ public:
     explicit Login(QObject *parent = nullptr);
 signals:
     void sendError( QString error );
-    void successLogin(QString token);
+    void authorizationSuccess();
     void closeWindow();
+    void authorization(const QString& email, const QString& password);
 
 public slots:
    void recieveData( QString email, QString passwd );
+   void authorizationRequestFinished(EAuthorizationStatus status);
 
 
 

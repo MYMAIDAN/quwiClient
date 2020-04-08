@@ -6,12 +6,18 @@ struct SProjectInfo
 {
     int     projectId;
     QString name;
-    QUrl    logoUrl;
+    QString logoUrl;
     QString spentTimeAll;
     QString spentTimeMonth;
     QString spentTimeWeek;
     bool    isActive;
     bool    isOwnerWatcher;
+};
+
+enum EAuthorizationStatus
+{
+    eOK = 0,
+    eAuthorizationError
 };
 
 

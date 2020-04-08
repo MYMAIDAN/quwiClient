@@ -11,6 +11,7 @@
 
 #include "login.h"
 #include "projectshandler.h"
+#include "quwihttpmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,9 +19,17 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     ProjectsHandler projectsHandler;
+    QuwiHttpManager quwiManager;
 
     Login login;
-    QObject::connect(&login,&Login::successLogin,&projectsHandler,&ProjectsHandler::loadProjectsHandler);
+
+    QObject::connect(&login,&Login::authorization,&quwiManager,&QuwiHttpManager::authorization);
+    QObject::connect(&quwiManager,&QuwiHttpManager::authorizationRequestFinished,&login,&Login::authorizationRequestFinished);
+
+    QObject::connect(&login,&Login::authorizationSuccess,&projectsHandler, &ProjectsHandler::loadProjectsHandler);
+
+    QObject::connect(&projectsHandler,&ProjectsHandler::uploadProjectsList,&quwiManager,&QuwiHttpManager::uploadProjectsList);
+    QObject::connect(&quwiManager,&QuwiHttpManager::appendProject,&projectsHandler,&ProjectsHandler::appendProject);
 
     return app.exec();
 }

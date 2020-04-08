@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
@@ -37,6 +37,8 @@ if(ANDROID)
       imagedownloader.h
       projectmanager.cpp
       projectmanager.h
+      quwihttpmanager.cpp
+      quwihttpmanager.h
       public.h
       qml.qrc
     )
@@ -51,6 +53,8 @@ else()
       imagedownloader.h
       projectmanager.cpp
       projectmanager.h
+      quwihttpmanager.cpp
+      quwihttpmanager.h
       public.h
       qml.qrc
     )

@@ -25,8 +25,9 @@ public:
 
 
 public slots:
-    void loadProjectsHandler(QString token);
+    void loadProjectsHandler();
     void openProjectSetting(QString projectName);
+    void appendProject(const SProjectInfo& projectInfo);
 
 
 private:
@@ -50,6 +51,7 @@ private:
 
 signals:
     void appendNewProject(QString name,QString logo,QString spentTimeAll,QString spentTimeMonth, QString spentTimeWeek);
+    void uploadProjectsList();
 
 };
 

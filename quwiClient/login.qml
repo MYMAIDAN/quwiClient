@@ -14,7 +14,9 @@ ApplicationWindow {
         target: loginHandler
 
         onSendError: {
+
             errorLable.text = error
+            loginButton.enabled = true
         }
         onCloseWindow:
         {
@@ -66,6 +68,7 @@ ApplicationWindow {
         onClicked:
         {
             loginHandler.recieveData(loginEdit.text,passwordEdit.text)
+            loginButton.enabled = false
         }
     }
 
