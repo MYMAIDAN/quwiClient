@@ -19,16 +19,18 @@ public:
 signals:
     void authorizationRequestFinished(EAuthorizationStatus status);
     void appendProject(const SProjectInfo& projectInfo);
+    void setImageSource(QString source);
 
 public slots:
     void authorization(const QString& email, const QString& password);
     void uploadProjectsList();
+    void changeProjectSetting(const SProjectInfo& projectSetting);
 
 private:
     std::unique_ptr<QNetworkAccessManager> mNetworkManager;
     std::unique_ptr<QNetworkRequest>       mNetworkRequest;
     std::unique_ptr<QNetworkReply>         mNetworkReply;
-    QList<QNetworkReply*>                   mImageReply;
+    QList<QNetworkReply*>                  mImageReply;
 
 private slots:
     void authorizationRequest();

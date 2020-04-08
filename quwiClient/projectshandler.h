@@ -2,15 +2,12 @@
 #define PROJECTSHANDLER_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QJsonDocument>
 #include <QQmlApplicationEngine>
 #include <QString>
 #include <QQmlContext>
-#include <QImage>
 #include <QMap>
+
+#include <memory>
 
 #include "imagedownloader.h"
 #include "projectmanager.h"
@@ -22,36 +19,24 @@ class ProjectsHandler : public QObject
 public:
     explicit ProjectsHandler(QObject *parent = nullptr);
 
-
-
 public slots:
     void loadProjectsHandler();
-    void openProjectSetting(QString projectName);
     void appendProject(const SProjectInfo& projectInfo);
-
-
-private:
-
-    QNetworkAccessManager*  mNetwrokManager{ nullptr };
-    QNetworkRequest*        mNetworkRequest{ nullptr };
-    QNetworkReply*          mNetworkReply{ nullptr };
-    QQmlApplicationEngine*  mQmlEngine{ nullptr };
-    QQmlContext*            mQmlContext{ nullptr };
-    QString                 mToken;
-    QList<SProjectInfo>     mProjectsInfo;
-    ImageDownloader*        mImageDonwloader;
-    ProjectManager*         mProjectManager;
-    QMap<QString,SProjectInfo>* mProjectsMap;
-
+    void openSetting(QString projectName);
 
 private:
-    void getProjectList();
-    void parseProjectsJson(QJsonDocument document);
-    const QImage &downloadLogo(const QUrl &logoUrl);
+
+    QQmlApplicationEngine*     mQmlEngine{ nullptr };
+    QQmlContext*               mQmlContext{ nullptr };
+    QString                    mToken;
+    QList<SProjectInfo>        mProjectsInfo;
+    QMap<QString,SProjectInfo> mProjectsMap;
 
 signals:
     void appendNewProject(QString name,QString logo,QString spentTimeAll,QString spentTimeMonth, QString spentTimeWeek);
     void uploadProjectsList();
+    void openProjectSetting(SProjectInfo selectedProject);
+    void setImageSource(QString source);
 
 };
 

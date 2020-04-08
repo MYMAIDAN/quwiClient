@@ -114,7 +114,7 @@ Window {
                     anchors.fill: parent
                     onClicked:
                     {
-                        newProjectHandler.openProjectSetting(modelId.get(index).projectName)
+                        newProjectHandler.openSetting(modelId.get(index).projectName)
                         console.log(modelId.get(index).projectName);
                     }
                 }

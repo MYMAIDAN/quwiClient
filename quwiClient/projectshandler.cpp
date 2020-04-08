@@ -6,10 +6,7 @@
 
 ProjectsHandler::ProjectsHandler(QObject *parent) :
     QObject(parent),
-    mNetwrokManager( new QNetworkAccessManager(this) ),
-    mNetworkRequest( new QNetworkRequest),
-    mQmlEngine(new QQmlApplicationEngine(this)),
-    mProjectsMap(new QMap<QString,SProjectInfo>)
+    mQmlEngine(new QQmlApplicationEngine(this))
 {
 
 
@@ -29,26 +26,19 @@ void ProjectsHandler::loadProjectsHandler()
     mQmlEngine->load(url);
  }
 
-void ProjectsHandler::openProjectSetting(QString projectName)
-{
-    if( mProjectManager != nullptr)
-    {
-        delete mProjectManager;
-    }
-    auto it  = mProjectsMap->find(projectName);
-    if( it != mProjectsMap->end() )
-    {
-        mProjectManager = new ProjectManager(it.value(),mToken);
-    }
-
-}
 
 void ProjectsHandler::appendProject(const SProjectInfo &projectInfo)
 {
+    mProjectsMap.insert(projectInfo.name,projectInfo);
     emit appendNewProject(projectInfo.name,
                           projectInfo.logoUrl,
                           projectInfo.spentTimeAll,
                           projectInfo.spentTimeMonth,
                           projectInfo.spentTimeWeek
                           );
+}
+
+void ProjectsHandler::openSetting(QString projectName)
+{
+    emit openProjectSetting(mProjectsMap.find(projectName).value());
 }

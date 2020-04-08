@@ -13,6 +13,9 @@ Window {
 
     Connections {
         target: projectSetting
+
+        onSetImageSource:
+            logoImage.source = "file:/" + source;
     }
 
     Column{
@@ -86,7 +89,7 @@ Window {
          anchors.left: projectNameEdit.right
          anchors.leftMargin: 20
          onClicked: {
-             projectSetting.changeName(projectNameEdit.text)
+             projectSetting.changeProjectName(projectNameEdit.text)
              console.log(projectNameEdit.text)
          }
      }
@@ -94,13 +97,17 @@ Window {
   }
     Image
     {
+
+
         id:logoImage
         width: 152
         height: 113
+        visible: true
         anchors.bottom: nameActiveColumn.bottom
         anchors.bottomMargin: 0
         anchors.left: nameActiveColumn.right
         anchors.leftMargin: 20
+        objectName: "logoImage"
     }
 
     Row

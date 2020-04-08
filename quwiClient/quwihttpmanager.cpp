@@ -38,6 +38,21 @@ void QuwiHttpManager::uploadProjectsList()
   connect(mNetworkReply.get(),&QNetworkReply::finished,this,&QuwiHttpManager::projectListRecieved);
 }
 
+void QuwiHttpManager::changeProjectSetting(const SProjectInfo &projectSetting)
+{
+    QString url = "https://api.quwi.com/v2/projects-manage/update?id=";
+    url.append(QString::number(projectSetting.projectId));
+    mNetworkRequest->setUrl(QUrl(url));
+
+    mNetworkRequest->setHeader(QNetworkRequest::KnownHeaders::ContentTypeHeader,"application/x-www-form-urlencoded");
+
+    QString data = "name=";
+    data.append(projectSetting.name);
+
+    qDebug() << mNetworkRequest->rawHeaderList();
+    mNetworkManager->put(*mNetworkRequest,data.toLocal8Bit());
+}
+
 void QuwiHttpManager::authorizationRequest()
 {
     if( mNetworkReply->attribute(QNetworkRequest::Attribute::HttpStatusCodeAttribute).toInt() == 417 )

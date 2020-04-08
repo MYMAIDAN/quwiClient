@@ -2,10 +2,6 @@
 #define LOGIN_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QJsonDocument>
 #include <QQmlApplicationEngine>
 #include <QString>
 #include <QQmlContext>
@@ -27,12 +23,7 @@ public slots:
    void recieveData( QString email, QString passwd );
    void authorizationRequestFinished(EAuthorizationStatus status);
 
-
-
 private:
-    QNetworkAccessManager*  mNetwrokManager{ nullptr };
-    QNetworkRequest*        mNetworkRequest{ nullptr };
-    QNetworkReply*          mNetworkReply{ nullptr };
     QQmlApplicationEngine*  mQmlEngine{ nullptr };
     QQmlContext*            mQmlContext{ nullptr };
 
