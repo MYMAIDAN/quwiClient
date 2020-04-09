@@ -30,12 +30,29 @@ void ProjectsHandler::loadProjectsHandler()
 void ProjectsHandler::appendProject(const SProjectInfo &projectInfo)
 {
     mProjectsMap.insert(projectInfo.name,projectInfo);
+    QString color;
+    QString statusText;
+    if( projectInfo.isActive )
+    {
+        color = "green";
+        statusText = "Active";
+    }
+    else
+    {
+        color = "red";
+        statusText = "Inactive";
+    }
+
     emit appendNewProject(projectInfo.name,
                           projectInfo.logoUrl,
                           projectInfo.spentTimeAll,
                           projectInfo.spentTimeMonth,
-                          projectInfo.spentTimeWeek
+                          projectInfo.spentTimeWeek,
+                          color,
+                          statusText
                           );
+
+
 }
 
 void ProjectsHandler::openSetting(QString projectName)

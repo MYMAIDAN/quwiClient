@@ -32,7 +32,13 @@ private:
     QMap<QString,SProjectInfo> mProjectsMap;
 
 signals:
-    void appendNewProject(QString name,QString logo,QString spentTimeAll,QString spentTimeMonth, QString spentTimeWeek);
+    void appendNewProject(QString name,
+                          QString logo,
+                          QString spentTimeAll,
+                          QString spentTimeMonth,
+                          QString spentTimeWeek,
+                          QString colorActive,
+                          QString statusText);
     void uploadProjectsList();
     void openProjectSetting(SProjectInfo selectedProject);
     void setImageSource(QString source);

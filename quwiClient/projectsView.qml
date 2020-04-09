@@ -15,7 +15,7 @@ Window {
         target: newProjectHandler
 
         onAppendNewProject: {
-            modelId.append({"logoPath":logo,"projectName":name,"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
+            modelId.append({"statusText":statusText,"colorStatus":colorActive,"logoPath":logo,"projectName":name,"time_this_week": spentTimeWeek,"time_this_month": spentTimeMonth,"time_total": spentTimeAll})
         }
     }
 
@@ -50,7 +50,8 @@ Window {
                     id: status
                     anchors.centerIn: it
                     anchors.leftMargin: 40
-                    text: qsTr("Active")
+                    color: colorStatus
+                    text: statusText
                 }
                 Column {
                     id: col
