@@ -9,7 +9,6 @@
 
 #include <memory>
 
-#include "imagedownloader.h"
 #include "projectmanager.h"
 #include "public.h"
 

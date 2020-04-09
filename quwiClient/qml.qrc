@@ -3,6 +3,5 @@
         <file>login.qml</file>
         <file>projectsView.qml</file>
         <file>projectSetting.qml</file>
-        <file>logo/photo-1503023345310-bd7c1de61c7d.jpg</file>
     </qresource>
 </RCC>

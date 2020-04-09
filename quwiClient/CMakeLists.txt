@@ -33,8 +33,6 @@ if(ANDROID)
       login.h
       projectshandler.cpp
       projectshandler.h
-      imagedownloader.cpp
-      imagedownloader.h
       projectmanager.cpp
       projectmanager.h
       quwihttpmanager.cpp
@@ -49,8 +47,6 @@ else()
       login.h
       projectshandler.cpp
       projectshandler.h
-      imagedownloader.cpp
-      imagedownloader.h
       projectmanager.cpp
       projectmanager.h
       quwihttpmanager.cpp
